@@ -11,6 +11,7 @@ public class Controller {
 
     @GetMapping("/hello")   //GET요청 응답
     public ResponseEntity<?> hello() {
+
         return new ResponseEntity<ResponseDto>(new ResponseDto(1L, "content", 2), HttpStatus.OK);
     }
 }
