@@ -51,7 +51,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}  # IAM key
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # IAM key
-		# s3://{전달할 S3 Bucket 이름}/
+      # s3://{전달할 S3 Bucket 이름}/
       run: |
         aws s3 cp \
         --region ap-northeast-2 \
