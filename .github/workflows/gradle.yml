@@ -63,15 +63,24 @@ jobs:
         ./springboot-build.zip s3://bucket.h/
         
     # deploy
-    - name: Deploy
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#     - name: Deploy
+#       env:
+#         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#       run: |
+#         aws deploy create-deployment \
+#         --application-name springboot-build \
+#         --deployment-group-name springboot-build-deploy-group \
+#         --file-exists-behavior OVERWRITE \
+#         --s3-location bucket=springboot-build-build,bundleType=zip,key=springboot-build.zip \
+#         --region ap-northeast-2
+
+    # Deploy
+    - name: Code Deploy
       run: |
         aws deploy create-deployment \
-        --application-name springboot-build \
-        --deployment-group-name springboot-build-deploy-group \
-        --file-exists-behavior OVERWRITE \
-        --s3-location bucket=springboot-build-build,bundleType=zip,key=springboot-build-build.zip \
+        --application-name CicdApplication \
+        --deployment-config-name CodeDeployDefault.AllAtOnce \
+        --deployment-group-name group \
+        --s3-location bucket=bucket.h,bundleType=zip,key=springboot-build.zip \
         --region ap-northeast-2
-
