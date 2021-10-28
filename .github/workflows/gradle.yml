@@ -69,8 +69,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         aws deploy create-deployment \
-        --application-name codedeploy-h \           # CodeDeploy 어플리케이션 이름
-        --deployment-group-name group \             # CodeDeploy 배포 그룹 이름
-        --file-exists-behavior OVERWRITE \          # 이미 파일이 있으면 덮어쓰기
-        --s3-location bucket=bucket.h,bundleType=zip,key=springboot-build.zip \        # S3 버킷 이름, 업로드한 zip파일 이름
+        --application-name codedeploy-h \
+        --deployment-group-name group \
+        --file-exists-behavior OVERWRITE \
+        --s3-location bucket=bucket.h,bundleType=zip,key=springboot-build.zip \
         --region ap-northeast-2
