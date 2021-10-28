@@ -69,10 +69,10 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         aws deploy create-deployment \
-        --application-name cicd \
-        --deployment-group-name springboot-build-deploy-group \
+        --application-name CicdApplication \
+        --deployment-group-name group \
         --file-exists-behavior OVERWRITE \
-        --s3-location bucket=springboot-build-build,bundleType=zip,key=springboot-build.zip \
+        --s3-location bucket=bucket.h,bundleType=zip,key=springboot-build.zip \
         --region ap-northeast-2
 
 #     # Deploy
