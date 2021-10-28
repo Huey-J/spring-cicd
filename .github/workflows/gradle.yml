@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-# Repo Action 페이지에 나타날 이름
+# Repo Actions 페이지에 나타날 이름 (묶음)
 name: Java CI with Gradle
 
 # Event Trigger
@@ -41,7 +41,7 @@ jobs:
     # Jar 파일 Copy
     - name: Copy Jar
       run: cp ./build/libs/*.jar ./deploy/
-      
+
     # appspec.yml Copy
     - name: Copy appspec
       run: cp appspec.yml ./deploy/
@@ -61,7 +61,7 @@ jobs:
         --region ap-northeast-2 \
         --acl private \
         ./springboot-build.zip s3://bucket.h/
-        
+
     # deploy
     - name: Deploy
       env:
@@ -69,18 +69,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         aws deploy create-deployment \
-        --application-name codedeploy-h \
-        --deployment-group-name group \
-        --file-exists-behavior OVERWRITE \
-        --s3-location bucket=bucket.h,bundleType=zip,key=springboot-build.zip \
+        --application-name codedeploy-h \           # CodeDeploy 어플리케이션 이름
+        --deployment-group-name group \             # CodeDeploy 배포 그룹 이름
+        --file-exists-behavior OVERWRITE \          # 이미 파일이 있으면 덮어쓰기
+        --s3-location bucket=bucket.h,bundleType=zip,key=springboot-build.zip \        # S3 버킷 이름, 업로드한 zip파일 이름
         --region ap-northeast-2
-
-#     # Deploy
-#     - name: Code Deploy
-#       run: |
-#         aws deploy create-deployment \
-#         --application-name CicdApplication \
-#         --deployment-config-name CodeDeployDefault.AllAtOnce \
-#         --deployment-group-name group \
-#         --s3-location bucket=bucket.h,bundleType=zip,key=springboot-build.zip \
-#         --region ap-northeast-2
